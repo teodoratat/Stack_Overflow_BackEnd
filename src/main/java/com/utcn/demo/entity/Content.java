@@ -11,6 +11,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "contents")
@@ -18,7 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Content {
 
@@ -27,9 +29,9 @@ public class Content {
     @Column(name = "content_id")
     private Long contentID;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    //@JsonIgnore
     private User user;
 
     @Column(name = "text")
@@ -41,6 +43,7 @@ public class Content {
     @Column(name = "date_time")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
+
 
 
 }

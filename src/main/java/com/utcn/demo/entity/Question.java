@@ -3,10 +3,8 @@ package com.utcn.demo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.*;
 
 @Entity
@@ -15,7 +13,8 @@ import java.util.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@ToString
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @PrimaryKeyJoinColumn(name = "content_id")
 public class Question extends Content {
 
@@ -26,10 +25,8 @@ public class Question extends Content {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>();
 
-    @ManyToMany(cascade = {
-        CascadeType.PERSIST,
-                CascadeType.MERGE
-    })
+
+    @ManyToMany(targetEntity = Tag.class, cascade = CascadeType.ALL)
     @JoinTable(name = "questions_tags",
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))

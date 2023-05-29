@@ -11,4 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
+    //List<Answer> findAllByContentID(Long contentID);
+    List<Answer> findAllByQuestion_Title(String title);
+
+   // List<Answer> findAllByUser_UserId(Long userId);
 }

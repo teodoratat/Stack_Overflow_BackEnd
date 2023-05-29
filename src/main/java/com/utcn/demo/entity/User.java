@@ -1,5 +1,6 @@
 package com.utcn.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.List;
 public class User {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
     private Long userId;
 
@@ -34,20 +35,25 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 10)
     private String phoneNr;
 
     @Column(name = "password")
     private String password;
 
+    @Column(name = "banned")
+    private Boolean banned = false;
+
+    @Column(name = "score")
+    private Double score = 0.0;
 
     @Column(name = "role")
     private String role;
 
-    ///@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @OneToMany()
-    @JoinColumn(name = "content_id")
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Content> contents = new ArrayList<>();
+
 
     public void addContent(Content content) {
         this.contents.add(content);

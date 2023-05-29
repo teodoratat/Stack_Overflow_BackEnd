@@ -1,5 +1,6 @@
 package com.utcn.demo.service;
 
+import com.utcn.demo.entity.Answer;
 import com.utcn.demo.entity.Tag;
 import com.utcn.demo.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,13 @@ public class TagService {
         return (List<Tag>) tagRepository.findAll();
     }
 
-    public Optional<Tag> retrieveTagById(Long id) {
-        return tagRepository.findById(id);
+    public Optional<Tag> retrieveTagById(Long tagId) {
+        return tagRepository.findById(tagId);
     }
 
-    public void deleteTagById(Long id) {
-        tagRepository.deleteById(id);
+    public String deleteTagById(Long tagId) {
+        tagRepository.deleteById(tagId);
+        return null;
     }
 
     public void deleteTagByName(String name){
@@ -42,5 +44,10 @@ public class TagService {
         }
         return tag;
     }
+    public Tag saveTag2(Tag tag) {
+       Tag savedTag = tagRepository.save(tag);
+       return savedTag;
+    }
+
 
 }

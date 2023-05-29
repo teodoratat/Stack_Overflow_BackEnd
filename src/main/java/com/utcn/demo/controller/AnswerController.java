@@ -27,7 +27,12 @@ public class AnswerController {
 
         return answerService.retrieveAnswerById(id);
     }
+    @GetMapping("/getByQuestion")
+    @ResponseBody
+    public List<Answer> retrieveByQuestion(String title){
 
+        return answerService.getAnswersByQuestion_Title(title);
+    }
     @DeleteMapping("/deleteById/{id}")
     @ResponseBody
     public String deleteById(@PathVariable Long id){
@@ -41,7 +46,7 @@ public class AnswerController {
         return answerService.saveAnswer(answer);
     }
 
-    @PostMapping("/updateAnswer")
+    @PutMapping("/updateAnswer")
     @ResponseBody
     public Answer updateAnswer(@RequestBody Answer answer){
 

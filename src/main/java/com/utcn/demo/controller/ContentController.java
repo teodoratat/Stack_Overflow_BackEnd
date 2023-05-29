@@ -30,9 +30,9 @@ public class ContentController {
 
     @DeleteMapping("/deleteById/{id}")
     @ResponseBody
-    public String deleteById(@PathVariable Long id){
+    public String deleteById(@PathVariable Long contentID){
 
-        return contentService.deleteById(id);
+        return contentService.deleteById(contentID);
     }
     @PostMapping("/insertContent")
     @ResponseBody
@@ -40,13 +40,20 @@ public class ContentController {
 
         return contentService.saveContent(content);
     }
+    @PostMapping("/insertContent2")
+    @ResponseBody
+    public Content insertContent2(@RequestBody Content content,Long userId){
 
-    @PostMapping("/updateContent")
+        return contentService.saveContent2(content,userId);
+    }
+    @PutMapping("/updateContent")
     @ResponseBody
     public Content updateContent(@RequestBody Content content){
 
         return contentService.saveContent(content);
     }
+
+
 }
 
 

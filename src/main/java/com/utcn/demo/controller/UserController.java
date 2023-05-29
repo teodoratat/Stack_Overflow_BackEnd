@@ -1,8 +1,10 @@
 package com.utcn.demo.controller;
 
+import com.utcn.demo.entity.Content;
 import com.utcn.demo.entity.User;
 import com.utcn.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,21 +25,38 @@ public class UserController {
 
     @GetMapping("/getById/{cnp}")
     @ResponseBody
-    public User retrieveById(@PathVariable Long cnp){
+    public User retrieveById( Long cnp){
 
         return userService.retrieveUserById(cnp);
     }
 
     @GetMapping("/getByEmail{email}")
     @ResponseBody
-    public User retrieveByEmail(@PathVariable String email){
+    public User retrieveByEmail(String email){
         return  userService.retrieveUserByEmail(email);}
 
     @GetMapping("/getById")
     @ResponseBody
-    public User retrieveById1(@RequestParam("cnp") Long cnp){
+    public User retrieveById1( Long cnp){
 
         return userService.retrieveUserById(cnp);
+    }
+
+
+
+    @GetMapping("/login")
+    public ResponseEntity<User> getUserByEmailAndPassword(@RequestParam("email") String email, @RequestParam("password") String password) {
+        User user = userService.getUserByEmailAndPassword(email, password);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/getAllUsers")
+    public List<User> getAllUsers(){
+        return userService.getUsersWithNonModeratorRole();
     }
 
     @DeleteMapping("/deleteById/{cnp}")

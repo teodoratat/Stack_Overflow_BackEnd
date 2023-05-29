@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {
@@ -29,6 +30,9 @@ public class AnswerService {
         }
     }
 
+    public List<Answer> getAnswersByQuestion_Title(String title) {
+        return answerRepository.findAllByQuestion_Title(title);
+    }
 
     public Answer saveAnswer(Answer answer) {
         Answer savedAnswer = answerRepository.save(answer);

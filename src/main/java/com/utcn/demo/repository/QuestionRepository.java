@@ -12,4 +12,12 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
     List<Question> findAllByOrderByCreationDateDesc();
+    List<Question> findAllByTags_Name(String tagName);
+
+    List<Question> findAllByUser_Email(String userEmail);
+
+    //List<Question>
+    List<Question> findAllByTitleContainingIgnoreCase(String title);
+    //String findUser_EmailByContentID(Long contentID);
+
 }
